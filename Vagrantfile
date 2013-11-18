@@ -15,6 +15,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Mount salt roots, so we can do masterless setup
   config.vm.synced_folder 'salt/roots/', '/srv/'
   
+  # Forwarding jenkins port
+  config.vm.network :forwarded_port, guest: 8080, host: 8088
+  
   # Install bootstrap salt minion
   config.vm.provision :shell,
     :inline => 'wget -O - http://bootstrap.saltstack.org | sudo sh'
