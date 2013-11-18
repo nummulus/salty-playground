@@ -19,11 +19,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell,
     :inline => 'wget -O - http://bootstrap.saltstack.org | sudo sh'
     
-  #config.vm.provision :salt do |salt|
-   # salt.minion_config = 'salt/minion'
-    #salt.run_highstate = true
-    #salt.verbose = true
-  #end
+  config.vm.provision :salt do |salt|
+    salt.minion_config = 'salt/minion'
+    salt.run_highstate = true
+    salt.verbose = true
+  end
+  
+  config.vm.network :forwarded_port, host: 4444, guest: 80
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
